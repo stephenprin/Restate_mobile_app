@@ -3,6 +3,8 @@ import {Link} from "expo-router";
 import images from "@/constants/images";
 import icons from "@/constants/icons";
 import Search from "@/components/Search";
+import {Card, FeaturedCard} from "@/components/Cards";
+import Filter from "@/components/Filter";
 
 export default function Index() {
   return (
@@ -27,9 +29,28 @@ export default function Index() {
             <Text>See All</Text>
           </TouchableOpacity>
         </View>
-      </View>
+        <View className="flex flex-row gap-4 mt-5">
+          <FeaturedCard/>
+          <FeaturedCard/>
 
+        </View>
+
+      </View>
+      <View className="flex flex-row items-center justify-between">
+        <Text className="text-xl font-rubik-bold text-black-300">Our Recommendation</Text>
+        <TouchableOpacity className=" text-base font-rubik-bold text-primary-300" >
+          <Text>See All</Text>
+        </TouchableOpacity>
+      </View>
+      <Filter/>
+      <View className="flex flex-row gap-4 mt-5">
+        <Card/>
+        <Card/>
+
+      </View>
     </View>
+
+
 
   </SafeAreaView>
   );

@@ -11,7 +11,7 @@ const Search = () => {
 
     const debounced = useDebouncedCallback((text:string)=>router.setParams({query:text}),500)
 
-    const hanndleSearch=(text:string)=>{
+    const handleSearch=(text:string)=>{
         setSearch(text);
         debounced(text);
     }
@@ -22,7 +22,7 @@ const Search = () => {
                 <Image source={icons.search} className="size-6" />
                <TextInput
                    value={search ?? ''}
-               onChangeText={hanndleSearch}
+               onChangeText={handleSearch}
                placeholder="Search for your favourite estate..."
                className="text-sm font-rubik text-black-300 ml-2 flex-1"
                    placeholderTextColor="#9CA3AF"
