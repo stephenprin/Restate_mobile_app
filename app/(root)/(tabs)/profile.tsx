@@ -1,8 +1,10 @@
-import {View, Text, SafeAreaView, ScrollView, Image, TouchableOpacity, ImageSourcePropType} from 'react-native'
+import {View, Text, SafeAreaView, ScrollView, Image, TouchableOpacity, ImageSourcePropType, Alert} from 'react-native'
 import React from 'react'
 import images from "@/constants/images";
 import icons from "@/constants/icons";
 import {settings} from "@/constants/data";
+import {useGlobalContext} from "@/lib/global-provider";
+import {logout} from "@/lib/appwrite";
 
 
 interface SettingsItemProps{
@@ -24,7 +26,16 @@ const SettingItems=({icon, title, onPress, textStyle, showArrow=true}: SettingsI
 )
 
 const Profile = () => {
-    const handleLogout = () => {}
+    const {user, refetch} =useGlobalContext()
+    const handleLogout = async () => {
+        const response=  await logout();
+        if(response){
+            Alert.alert("Success", "Logged out successfully.")
+            refetch()
+        }else{
+            Alert.alert("Error", "Error occurred while logging out");
+        }
+    }
     return (
         <SafeAreaView className="h-full bg-white">
            <ScrollView
@@ -38,11 +49,11 @@ const Profile = () => {
                 </View>
                <View className="flex-row items-center justify-center flex mt-5">
                         <View className="flex-col flex items-center relative mt-5">
-                            <Image source={images.avatar} resizeMode="contain" className="size-40 relative rounded-full" />
+                            <Image source={{uri:user?.avatar}} resizeMode="contain" className="size-40 relative rounded-full" />
                             <TouchableOpacity className="absolute bottom-11 right-2" >
                                 <Image source={icons.edit} resizeMode="contain" className="size-8 " />
                             </TouchableOpacity>
-                            <Text className="text-2xl font-rubik-bold mt-2">Prince Nmezi</Text>
+                            <Text className="text-2xl font-rubik-bold mt-2">{user?.name}</Text>
                         </View>
                </View>
                <View className="flex flex-col mt-10">
